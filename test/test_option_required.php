@@ -6,8 +6,8 @@ declare (strict_types = 1);
  * Time: 17:39
  */
 
-use Options\OptionParser;
-use Options\Option;
+use Console\Options\OptionParser;
+use Console\Options\Option;
 
 require __DIR__ . "/../vendor/autoload.php";
 
