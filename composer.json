@@ -1,0 +1,22 @@
+{
+    "name": "fzed51/console-options",
+    "description": "option parser pour ligne de commande PHP",
+    "type": "library",
+    "require-dev": {
+        "fzed51/run-test": "^1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabien Sanchez",
+            "email": "fzed51@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Console\\Options\\": "./src"
+        }
+    }
+}
