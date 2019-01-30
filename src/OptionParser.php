@@ -20,11 +20,6 @@ class OptionParser implements \ArrayAccess
      */
     private $options;
     /**
-     * parsed
-     * @var bool
-     */
-    private $parsed;
-    /**
      * parameters
      * @var array
      */
@@ -36,7 +31,6 @@ class OptionParser implements \ArrayAccess
      */
     public function __construct(array $options)
     {
-        $this->parsed = false;
         $this->parameters = [];
         foreach ($options as $option) {
             $this->addOption($option);
@@ -47,14 +41,14 @@ class OptionParser implements \ArrayAccess
      * intègre une nouvelle option
      * @param Option $option
      */
-    private function addOption(Option $option)
+    private function addOption(Option $option): void
     {
-        if (isset($this->options['-' . $option->getName()])) {
+        if (array_key_exists($this->options, '-' . $option->getName())) {
             throw new \RuntimeException("plusieur options portent le nom {$option->getName()}.");
         }
         $this->options['-' . $option->getName()] = $option;
-        if (!is_null($option->getShortname())) {
-            if (isset($this->options['-' . $option->getShortname()])) {
+        if ($option->getShortname() !== null) {
+            if (array_key_exists($this->options, '-' . $option->getShortname())) {
                 throw  new \RuntimeException("plusieur options portent le nom court {$option->getShortname()}.");
             }
             $this->options['-' . $option->getShortname()] = $option;
@@ -66,9 +60,9 @@ class OptionParser implements \ArrayAccess
      * @param $argv
      * @return void
      */
-    public function parse($argv)
+    public function parse($argv): void
     {
-        for ($index = 1; $index < count($argv); $index++) {
+        for ($index = 1, $indexMax = count($argv); $index < $indexMax; $index++) {
             $argument = $argv[$index];
             if (isset($this->options[$argument])) {
                 $option = $this->options[$argument];
@@ -96,7 +90,7 @@ class OptionParser implements \ArrayAccess
      * vérifie si une option nécéssite encore une valeur
      * @return void
      */
-    private function testRequired()
+    private function testRequired(): void
     {
         foreach ($this->options as $option) {
             if ($option->isRequired()) {
@@ -145,7 +139,7 @@ class OptionParser implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        throw new \RuntimeException("Offset en lecture seule");
+        throw new \RuntimeException('Offset en lecture seule');
     }
 
     /**
@@ -153,13 +147,13 @@ class OptionParser implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        throw new \RuntimeException("Offset en lecture seule");
+        throw new \RuntimeException('Offset en lecture seule');
     }
 
     /**
      * @return array
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
@@ -167,7 +161,7 @@ class OptionParser implements \ArrayAccess
     /**
      * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         $options = [];
         foreach ($this->options as $option) {
