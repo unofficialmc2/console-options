@@ -18,7 +18,7 @@ class OptionParser implements \ArrayAccess
      * options
      * @var Option[]
      */
-    private $options;
+    private $options = [];
     /**
      * parameters
      * @var array
@@ -43,12 +43,12 @@ class OptionParser implements \ArrayAccess
      */
     private function addOption(Option $option): void
     {
-        if (array_key_exists($this->options, '-' . $option->getName())) {
+        if (array_key_exists('-' . $option->getName(),$this->options)) {
             throw new \RuntimeException("plusieur options portent le nom {$option->getName()}.");
         }
         $this->options['-' . $option->getName()] = $option;
         if ($option->getShortname() !== null) {
-            if (array_key_exists($this->options, '-' . $option->getShortname())) {
+            if (array_key_exists('-' . $option->getShortname(), $this->options)) {
                 throw  new \RuntimeException("plusieur options portent le nom court {$option->getShortname()}.");
             }
             $this->options['-' . $option->getShortname()] = $option;
@@ -108,7 +108,7 @@ class OptionParser implements \ArrayAccess
         if (is_int($offset)) {
             return isset($this->parameters[$offset]);
         }
-        return array_key_exists($this->options, '-' . $offset) && $this->options['-' . $offset]->hasValue();
+        return array_key_exists('-' . $offset, $this->options) && $this->options['-' . $offset]->hasValue();
     }
 
     /**
@@ -123,7 +123,7 @@ class OptionParser implements \ArrayAccess
             }
             throw new \OutOfRangeException("Le paramètre $offset n'existe pas.");
         }
-        if (array_key_exists($this->options, '-' . $offset)) {
+        if (array_key_exists('-' . $offset, $this->options)) {
             if (!$this->options['-' . $offset]->hasValue()) {
                 throw new \UnexpectedValueException("L'option $offset n'a pas de valeur.");
             }
