@@ -218,8 +218,15 @@ class Option
      * test si l'option est un flag
      * @return bool
      */
-    public function isFlag()
+    public function isFlag(): bool
     {
         return ($this->type & self::T_FLAG) === self::T_FLAG;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasValue(): bool{
+        return $this->hasDefault || $this->hasValue;
     }
 }

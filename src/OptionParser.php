@@ -114,7 +114,7 @@ class OptionParser implements \ArrayAccess
         if (is_int($offset)) {
             return isset($this->parameters[$offset]);
         }
-        return isset($this->options["-" . $offset]);
+        return array_key_exists($this->options, '-' . $offset) && $this->options['-' . $offset]->hasValue();
     }
 
     /**
@@ -125,14 +125,17 @@ class OptionParser implements \ArrayAccess
     {
         if (is_int($offset)) {
             if (isset($this->parameters[$offset])) {
-                return ($this->parameters[$offset]);
+                return $this->parameters[$offset];
             }
             throw new \OutOfRangeException("Le paramètre $offset n'existe pas.");
         }
-        if (isset($this->options["-" . $offset])) {
-            return ($this->options["-" . $offset]->getValue());
+        if (array_key_exists($this->options, '-' . $offset)) {
+            if (!$this->options['-' . $offset]->hasValue()) {
+                throw new \UnexpectedValueException("L'option $offset n'a pas de valeur.");
+            }
+            return $this->options['-' . $offset]->getValue();
         }
-        throw new \OutOfRangeException("L'option $offset n'existe pas.");
+        throw new \OutOfBoundsException("L'option $offset n'existe pas.");
 
     }
 
