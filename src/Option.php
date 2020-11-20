@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Console\Options;
 
-
 class Option
 {
     /**
@@ -56,7 +55,7 @@ class Option
     private $hasDefault;
     /**
      * valeur par defaut de l'option
-     * @var
+     * @var mixed
      */
     private $default;
 
@@ -133,7 +132,7 @@ class Option
 
     /**
      * cast une valeur selon le type de l'option
-     * @param $value
+     * @param mixed $value
      * @return bool|float|int|string
      */
     private function cast($value)
@@ -169,9 +168,9 @@ class Option
 
     /**
      * initialise la value de l'option
-     * @param $value
+     * @param mixed $value
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->hasValue = true;
         $this->value = $this->cast($value);
@@ -187,7 +186,6 @@ class Option
     }
 
     /**
-     * @param bool $requis
      * @return Option
      */
     public function setRequired(): Option
@@ -226,7 +224,8 @@ class Option
     /**
      * @return bool
      */
-    public function hasValue(): bool{
+    public function hasValue(): bool
+    {
         return $this->hasDefault || $this->hasValue;
     }
 }

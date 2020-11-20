@@ -11,23 +11,24 @@ namespace Console\Options;
 /**
  * Class OptionParser
  * @package Console\Options
+ * @template-implements \ArrayAccess<string,mixed>
  */
 class OptionParser implements \ArrayAccess
 {
     /**
      * options
-     * @var Option[]
+     * @var array<string,\Console\Options\Option>
      */
     private $options = [];
     /**
      * parameters
-     * @var array
+     * @var mixed[]
      */
     private $parameters;
 
     /**
      * OptionParser constructor.
-     * @param array $options
+     * @param \Console\Options\Option[] $options
      */
     public function __construct(array $options)
     {
@@ -43,7 +44,7 @@ class OptionParser implements \ArrayAccess
      */
     private function addOption(Option $option): void
     {
-        if (array_key_exists('-' . $option->getName(),$this->options)) {
+        if (array_key_exists('-' . $option->getName(), $this->options)) {
             throw new \RuntimeException("plusieur options portent le nom {$option->getName()}.");
         }
         $this->options['-' . $option->getName()] = $option;
@@ -57,10 +58,10 @@ class OptionParser implements \ArrayAccess
 
     /**
      * lits les paramèrtes donné au script et les affectes aux options
-     * @param $argv
+     * @param string[] $argv
      * @return void
      */
-    public function parse($argv): void
+    public function parse(array $argv): void
     {
         for ($index = 1, $indexMax = count($argv); $index < $indexMax; $index++) {
             $argument = $argv[$index];
@@ -130,7 +131,6 @@ class OptionParser implements \ArrayAccess
             return $this->options['-' . $offset]->getValue();
         }
         throw new \OutOfBoundsException("L'option $offset n'existe pas.");
-
     }
 
     /**
@@ -151,7 +151,7 @@ class OptionParser implements \ArrayAccess
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function getParameters(): array
     {
@@ -159,7 +159,7 @@ class OptionParser implements \ArrayAccess
     }
 
     /**
-     * @return array
+     * @return array<string,mixed>
      */
     public function getOptions(): array
     {
@@ -169,5 +169,4 @@ class OptionParser implements \ArrayAccess
         }
         return $options;
     }
-
 }
