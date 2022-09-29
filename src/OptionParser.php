@@ -104,7 +104,7 @@ class OptionParser implements \ArrayAccess
      * @param mixed $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         if (is_int($offset)) {
             return isset($this->parameters[$offset]);
@@ -116,7 +116,7 @@ class OptionParser implements \ArrayAccess
      * @param mixed $offset
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (is_int($offset)) {
             if (isset($this->parameters[$offset])) {
@@ -137,7 +137,7 @@ class OptionParser implements \ArrayAccess
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \RuntimeException('Offset en lecture seule');
     }
@@ -145,7 +145,7 @@ class OptionParser implements \ArrayAccess
     /**
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \RuntimeException('Offset en lecture seule');
     }

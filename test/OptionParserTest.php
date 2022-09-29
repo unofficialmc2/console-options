@@ -7,7 +7,10 @@ use Console\Options\OptionParser;
 class OptionParserTest extends TestCase
 {
 
-    public function testPaseSimpleOption()
+    /**
+     * @return void
+     */
+    public function testPaseSimpleOption(): void
     {
         $options = new OptionParser([
             (new Option('config', 'c'))->setRequired()
@@ -16,7 +19,10 @@ class OptionParserTest extends TestCase
         self::assertEquals("./confog.json", $options['config']);
     }
 
-    public function testParseWithDefault()
+    /**
+     * @return void
+     */
+    public function testParseWithDefault(): void
     {
         $options = new OptionParser([
             (new Option('config', 'c'))->setDefault("./confog.json")
@@ -25,7 +31,10 @@ class OptionParserTest extends TestCase
         self::assertEquals("./confog.json", $options['config']);
     }
 
-    public function testOptionIsSet()
+    /**
+     * @return void
+     */
+    public function testOptionIsSet(): void
     {
         $options = new OptionParser([
             new Option('config', 'c'),
@@ -37,7 +46,10 @@ class OptionParserTest extends TestCase
         self::assertFalse(isset($options['x']));
     }
 
-    public function testOptionIsRequired()
+    /**
+     * @return void
+     */
+    public function testOptionIsRequired(): void
     {
         $this->expectException(\LogicException::class);
         $options = new OptionParser([
@@ -45,5 +57,4 @@ class OptionParserTest extends TestCase
         ]);
         $options->parse(["script.php", "./confog.json"]);
     }
-
 }
