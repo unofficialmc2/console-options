@@ -1,12 +1,12 @@
 {
-  "name": "fzed51/console-options",
+  "name": "unofficialmc2/console-options",
   "description": "option parser pour ligne de commande PHP",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Fabien Sanchez",
-      "email": "fzed51@users.noreply.github.com"
+      "email": "fabien.sanchez@arche-mc2.fr"
     }
   ],
   "minimum-stability": "stable",
