@@ -143,7 +143,7 @@ class Option
             case self::T_INTEGER:
                 return (int)$value;
             case self::T_DOUBLE:
-                return (double)$value;
+                return (float)$value;
             case self::T_STRING:
             case self::T_PATH:
             default:
