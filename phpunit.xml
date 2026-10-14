@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         executionOrder="depends,defects"
-         forceCoversAnnotation="false"
-         beStrictAboutCoversAnnotation="true"
+         executionOrder="defects"
+         resolveDependencies="true"
          beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         verbose="true">
-    <coverage processUncoveredFiles="true">
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
+    <source>
         <include>
             <directory suffix=".php">src</directory>
         </include>
-    </coverage>
-    <php>
-        <ini name="xdebug.default_enable" value="1"/>
-        <ini name="xdebug.remote_enable" value="1"/>
-        <ini name="xdebug.remote_autostart" value="1"/>
-        <ini name="xdebug.remote_connect_back" value="1"/>
-        <ini name="xdebug.remote_port" value="9000"/>
-    </php>
+    </source>
     <testsuites>
         <testsuite name="default">
             <directory suffix="Test.php">test</directory>
